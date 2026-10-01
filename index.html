@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="OmniHub - social, business, shopping, learning and creative tools in one place.">
+  <title>OmniHub — One Place for Everything</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="logo">O</span> OmniHub</a>
+    <nav>
+      <a href="#home">Home</a><a href="#social">Social</a><a href="#shop">Shop</a>
+      <a href="#learn">Learn</a><a href="#draw">Draw</a>
+    </nav>
+    <button class="primary" id="loginBtn">Sign in</button>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <span class="badge">ALL-IN-ONE PLATFORM</span>
+        <h1>Connect. Create. Learn. <span>Sell.</span></h1>
+        <p>OmniHub brings messaging, communities, business, shopping, learning and creative tools together in one simple web app.</p>
+        <div class="actions"><a class="primary" href="#social">Explore OmniHub</a><a class="secondary" href="#learn">Start learning</a></div>
+      </div>
+      <div class="hero-card"><div class="hero-icon">◎</div><h3>Everything in one place</h3><p>Social • Business • Shopping • Learning • Creative</p></div>
+    </section>
+
+    <section class="section" id="social">
+      <div class="section-head"><div><span class="eyebrow">SOCIAL</span><h2>Stay connected</h2></div><button class="secondary" id="newChatBtn">New message</button></div>
+      <div class="grid three">
+        <article class="card"><div class="icon">💬</div><h3>Messages</h3><p>Chat with friends and communities.</p><button class="linkbtn" id="chatBtn">Open chat →</button></article>
+        <article class="card"><div class="icon">🎥</div><h3>Video calls</h3><p>Start a video meeting interface. Real calling needs a backend/WebRTC service.</p><button class="linkbtn" id="videoBtn">Start call →</button></article>
+        <article class="card"><div class="icon">📞</div><h3>Audio calls</h3><p>Open a call-ready interface for your future calling service.</p><button class="linkbtn" id="audioBtn">Start call →</button></article>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="section-head"><div><span class="eyebrow">BUSINESS</span><h2>Shop & sell</h2></div><button class="secondary" id="businessBtn">Create business account</button></div>
+      <div class="grid three">
+        <article class="product card"><div class="product-img">🛍️</div><h3>Demo Product</h3><p>Example store item</p><strong>$19.99</strong><button class="primary addcart">Add to cart</button></article>
+        <article class="product card"><div class="product-img">🎧</div><h3>Creator Headset</h3><p>Example store item</p><strong>$39.99</strong><button class="primary addcart">Add to cart</button></article>
+        <article class="product card"><div class="product-img">📚</div><h3>Study Pack</h3><p>Example digital product</p><strong>$9.99</strong><button class="primary addcart">Add to cart</button></article>
+      </div>
+    </section>
+
+    <section class="section" id="learn">
+      <div class="section-head"><div><span class="eyebrow">EDUCATION</span><h2>Learn on OmniHub</h2></div><button class="secondary" id="studentBtn">Create student account</button></div>
+      <div class="grid three">
+        <article class="card"><div class="icon">📐</div><h3>Mathematics</h3><p>Courses, lessons and practice resources.</p><button class="linkbtn lesson">Open course →</button></article>
+        <article class="card"><div class="icon">💻</div><h3>Programming</h3><p>Build websites and apps step by step.</p><button class="linkbtn lesson">Open course →</button></article>
+        <article class="card"><div class="icon">🌍</div><h3>Languages</h3><p>Learn with lessons and community support.</p><button class="linkbtn lesson">Open course →</button></article>
+      </div>
+    </section>
+
+    <section class="section" id="draw">
+      <div class="section-head"><div><span class="eyebrow">CREATIVE</span><h2>Draw something</h2></div><button class="secondary" id="clearCanvas">Clear</button></div>
+      <div class="draw-wrap card"><canvas id="canvas" width="1000" height="420"></canvas><div class="draw-tools"><label>Color <input id="color" type="color" value="#6d5dfc"></label><label>Size <input id="size" type="range" min="1" max="40" value="6"></label><button class="primary" id="saveDrawing">Save drawing</button></div></div>
+    </section>
+  </main>
+
+  <footer><strong>OmniHub</strong><span>Social • Business • Learning • Creative</span><small>© 2026 OmniHub. MVP frontend.</small></footer>
+
+  <div class="modal" id="modal"><div class="modal-box"><button class="close" id="closeModal">×</button><h2 id="modalTitle">Welcome to OmniHub</h2><p id="modalText">This is the frontend MVP. Authentication, real-time messaging, payments and calls require secure backend services.</p><input id="nameInput" placeholder="Your name"><button class="primary" id="modalAction">Continue</button></div></div>
+  <script src="app.js"></script>
+</body>
+</html>
