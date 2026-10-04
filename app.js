@@ -1,4 +1,250 @@
-const $=s=>document.querySelector(s);
+// OmniHub - Main App JavaScript
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("OmniHub app loaded");
+
+  // -----------------------------
+  // Demo profile / Sign in
+  // -----------------------------
+  const savedName = localStorage.getItem("omnihub_name");
+
+  function showWelcome(name) {
+    alert(`Welcome, ${name}! Your OmniHub demo profile is saved.`);
+  }
+
+  function signIn() {
+    const name = prompt("Enter your name:");
+
+    if (!name || !name.trim()) {
+      return;
+    }
+
+    const cleanName = name.trim();
+    localStorage.setItem("omnihub_name", cleanName);
+    showWelcome(cleanName);
+  }
+
+  // -----------------------------
+  // Sign in buttons
+  // -----------------------------
+  document.querySelectorAll(
+    "#signInBtn, .sign-in-btn, [data-action='signin']"
+  ).forEach((button) => {
+    button.addEventListener("click", signIn);
+  });
+
+  // -----------------------------
+  // New message
+  // -----------------------------
+  document.querySelectorAll(
+    "[data-action='message'], .message-btn"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      alert(
+        "Messaging UI is ready for the frontend.\n\n" +
+        "Real messaging will require a backend such as Supabase or Firebase."
+      );
+    });
+  });
+
+  // -----------------------------
+  // Video call
+  // -----------------------------
+  document.querySelectorAll(
+    "[data-action='video'], .video-btn"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      alert(
+        "Video call interface is ready.\n\n" +
+        "Real video calling will require WebRTC/backend integration."
+      );
+    });
+  });
+
+  // -----------------------------
+  // Audio call
+  // -----------------------------
+  document.querySelectorAll(
+    "[data-action='audio'], .audio-btn"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      alert(
+        "Audio call interface is ready.\n\n" +
+        "Real audio calling will require backend/WebRTC integration."
+      );
+    });
+  });
+
+  // -----------------------------
+  // Business account
+  // -----------------------------
+  document.querySelectorAll(
+    "[data-action='business'], .business-btn"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      alert(
+        "Business Account\n\n" +
+        "Create your business profile to sell products on OmniHub."
+      );
+    });
+  });
+
+  // -----------------------------
+  // Student account
+  // -----------------------------
+  document.querySelectorAll(
+    "[data-action='student'], .student-btn"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      alert(
+        "Student Account\n\n" +
+        "Create your student profile and start learning on OmniHub."
+      );
+    });
+  });
+
+  // -----------------------------
+  // Shopping cart
+  // -----------------------------
+  let cart = JSON.parse(localStorage.getItem("omnihub_cart") || "[]");
+
+  function saveCart() {
+    localStorage.setItem("omnihub_cart", JSON.stringify(cart));
+  }
+
+  document.querySelectorAll(
+    "[data-action='cart'], .add-cart, .add-to-cart"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      const product =
+        button.dataset.product ||
+        button.closest("[data-product]")?.dataset.product ||
+        "Demo Product";
+
+      cart.push(product);
+      saveCart();
+
+      alert(`${product} added to your cart.`);
+    });
+  });
+
+  // -----------------------------
+  // Draw / Canvas
+  // -----------------------------
+  const canvas = document.querySelector(
+    "#drawCanvas, canvas[data-draw]"
+  );
+
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+
+    let drawing = false;
+
+    function position(event) {
+      const rect = canvas.getBoundingClientRect();
+
+      const touch =
+        event.touches && event.touches.length
+          ? event.touches[0]
+          : event;
+
+      return {
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top
+      };
+    }
+
+    function startDrawing(event) {
+      drawing = true;
+
+      const p = position(event);
+
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+
+      event.preventDefault();
+    }
+
+    function draw(event) {
+      if (!drawing) return;
+
+      const p = position(event);
+
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+
+      event.preventDefault();
+    }
+
+    function stopDrawing() {
+      drawing = false;
+      ctx.closePath();
+    }
+
+    canvas.addEventListener("mousedown", startDrawing);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDrawing);
+    canvas.addEventListener("mouseleave", stopDrawing);
+
+    canvas.addEventListener("touchstart", startDrawing, {
+      passive: false
+    });
+
+    canvas.addEventListener("touchmove", draw, {
+      passive: false
+    });
+
+    canvas.addEventListener("touchend", stopDrawing);
+  }
+
+  // -----------------------------
+  // Clear drawing
+  // -----------------------------
+  document.querySelectorAll(
+    "#clearDrawing, .clear-drawing"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+    });
+  });
+
+  // -----------------------------
+  // Save drawing
+  // -----------------------------
+  document.querySelectorAll(
+    "#saveDrawing, .save-drawing"
+  ).forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!canvas) return;
+
+      const link = document.createElement("a");
+
+      link.download = "omnihub-drawing.png";
+      link.href = canvas.toDataURL("image/png");
+
+      link.click();
+    });
+  });
+
+  // -----------------------------
+  // Welcome existing user
+  // -----------------------------
+  if (savedName) {
+    console.log(`Welcome back, ${savedName}!`);
+  }
+});const $=s=>document.querySelector(s);
 const modal=$("#modal"), title=$("#modalTitle"), text=$("#modalText"), input=$("#nameInput");
 function openModal(t,m){title.textContent=t;text.textContent=m;modal.classList.add("show");input.focus()}
 $("#closeModal").onclick=()=>modal.classList.remove("show");
